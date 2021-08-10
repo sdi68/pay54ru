@@ -1,0 +1,12 @@
+{
+  "name": "sdi68/pay54ru",
+  "description": "Класс для работы с API сервиса формирования чеков pay54.ru",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "ECL",
+      "email": "info@econsultlab.ru"
+    }
+  ],
+  "minimum-stability": "dev"
+}
