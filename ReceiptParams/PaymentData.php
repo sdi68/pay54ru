@@ -14,6 +14,8 @@ use Pay54ru\Common\ReceiptParam;
 
 
 /**
+ * Тип платежного средства
+ *
  * @package     Pay54ru\ReceiptParams
  *
  * @since       version

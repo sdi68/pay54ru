@@ -14,6 +14,8 @@ use Pay54ru\Common\ReceiptParam;
 
 
 /**
+ * Тип НДС
+ *
  * @package     pay54ru\ReceiptParams
  *
  * @since       version
@@ -52,6 +54,7 @@ class Tax extends ReceiptParam
 
 	/**
 	 * Формирование секции параметра
+	 *
 	 * @param $value
 	 *
 	 * @return array
@@ -62,6 +65,13 @@ class Tax extends ReceiptParam
 		return self::_getParam("tax", $value);
 	}
 
+	/**
+	 * Проверка корректности параметра
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	public static function validate($value) {
 		if(is_numeric($value) && $value >= self::TAX_VAT_NONE && $value <= self::TAX_VAT_20_120)
 			return true;

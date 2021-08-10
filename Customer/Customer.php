@@ -10,20 +10,19 @@
 
 namespace Pay54ru\Customer;
 
-
-
 use Exception;
 use Pay54ru\Common\ReceiptParam;
 
 /**
- *
+ * Ошибка валидации параметра
  */
 define('PAY54_ERROR_EMPTY_CUSTOMER_CONTACTS',"Не указаны контактов  покупателя");
 
 /**
+ * Покупатель
  * @package     pay54ru\Customer
  *
- * @since       version
+ * @since       version 1.0
  */
 class Customer extends ReceiptParam
 {
@@ -88,6 +87,10 @@ class Customer extends ReceiptParam
 		return $out;
 	}
 
+	/**
+	 * Проверка корректности параметров
+	 * @throws Exception
+	 */
 	private function _validate() {
 		if(empty($this->_customerPhone) && empty($this->_customerEmail) ) {
 			throw new Exception(PAY54_ERROR_EMPTY_CUSTOMER_CONTACTS);

@@ -68,6 +68,12 @@ class AgentType extends ReceiptParam
 		return self::_getParam('priznakAgentaPoPredmetuRascheta', $value);
 	}
 
+	/**
+	 * Проверка корректности параметров
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	public static function validate ($value){
 		return ($value >= self::AGENT_BPA && $value <= self::AGENT_A) || $value == "";
 	}

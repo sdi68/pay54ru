@@ -14,6 +14,8 @@ use Pay54ru\Common\ReceiptParam;
 
 
 /**
+ * ID чека в системе
+ *
  * @package     Pay54ru\ReceiptParams
  *
  * @since       version
@@ -22,6 +24,7 @@ class UniqueId extends ReceiptParam
 {
 	/**
 	 * Формирование секции параметра
+	 *
 	 * @param $value
 	 *
 	 * @return array

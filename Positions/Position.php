@@ -10,15 +10,27 @@
 
 namespace Pay54ru\Positions;
 
-
 use Pay54ru\Common\ReceiptParam;
 use Pay54ru\Product\Product;
 use Pay54ru\Agent\PaymentAgent;
 
 
+/**
+ * Товарная позиция чека
+ * Class Position
+ * @package Pay54ru\Positions
+ */
 class Position  extends ReceiptParam
 {
+	/**
+	 * Товар
+	 * @var Product|null
+	 */
 	private $_product = null;
+	/**
+	 * Платежный агент
+	 * @var PaymentAgent|null
+	 */
 	private $_payment_agent = null;
 
 	/**
@@ -33,13 +45,15 @@ class Position  extends ReceiptParam
 		$this->_payment_agent                   = $_payment_agent;
 	}
 
+	/**
+	 * Формирование секции параметра в чеке
+	 * @return array
+	 * @throws \Exception
+	 */
 	public function getSection(){
 		$out = $this->_product->getSection();
 		if(!empty($this->_payment_agent))
 			$out = array_merge($out,$this->_payment_agent->getSection());
 		return $out;
 	}
-
-
-
 }
