@@ -200,8 +200,8 @@ class pay54ru
 	private function _request($data) {
 		header('Access-Control-Allow-Origin: *');
 		$data_string = json_encode($data);
-		print_r($data_string);
-		print_r('<br>'.$this->_url);
+		//print_r($data_string);
+		//print_r('<br>'.$this->_url);
 		if(empty($this->_url)) {
 			throw new Exception(PAY54_ERROR_URL);
 		}
