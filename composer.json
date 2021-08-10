@@ -1,12 +1,24 @@
 {
   "name": "sdi68/pay54ru",
   "description": "Класс для работы с API сервиса формирования чеков pay54.ru",
+  "type": "library",
+  "license": "MIT",
   "version": "1.0.0",
+  "homepage": "https://pay54.ru/documentation",
+  "keywords": ["pay54", "api"],
   "authors": [
     {
       "name": "ECL",
       "email": "info@econsultlab.ru"
     }
   ],
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pay54ru\\": "lib/"
+    }
+  }
 }
