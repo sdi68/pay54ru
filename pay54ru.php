@@ -18,20 +18,33 @@ use Pay54ru\ReceiptParams\Type;
 use Pay54ru\ReceiptParams\CalculationMethod;
 use Pay54ru\ReceiptParams\UniqueId;
 
-define('PAY54_RECEIPT_TYPE_SOLD',0);
-define('PAY54_RECEIPT_TYPE_RETURN',1);
-
 // ERRORS
-// Некорректный CLIENT_ID
+
+/**
+ * Некорректный CLIENT_ID
+ */
 define('PAY54_ERROR_CLIENT_ID',"Некорректное значение параметра client_id");
-// Некорректный CLIENT_SECRET
+
+/**
+ * Некорректный CLIENT_SECRET
+ */
 define('PAY54_ERROR_CLIENT_SECRET',"Некорректное значение параметра client_secret");
-// Некорректный ID чека
+
+/**
+ * Некорректный ID чека
+ */
 define('PAY54_ERROR_RECEIPT_ID','Некорректное значение параметра receipt_id');
-// Не установлены параметры сервиса
+
+/**
+ * Не установлены параметры сервиса
+ */
 define('PAY54_ERROR_URL','Не установлены параметры сервиса');
 
 
+/**
+ * Class pay54ru
+ * @package Pay54ru
+ */
 class pay54ru
 {
 	/**
@@ -58,10 +71,6 @@ class pay54ru
 	 */
 	private $_url = "";
 
-	private $_products = array();
-
-	private $_customer = null;
-
 	/**
 	 * pay54ru constructor.
 	 * @var string $client_id pay54.ru client ID
@@ -83,6 +92,19 @@ class pay54ru
 	}
 
 
+	/**
+	 * Отправка чека продажи
+	 *
+	 * @param          $type
+	 * @param          $paymentData
+	 * @param          $uniqueId
+	 * @param Customer $customer
+	 * @param array    $positions
+	 * @param          $calculationMethod
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
 	public function sendReceipt($type, $paymentData,$uniqueId,Customer $customer, array $positions, $calculationMethod) {
 		$receipt = array();
 		$this->_buildURL();
@@ -105,17 +127,25 @@ class pay54ru
 			);
 			return $out;
 		}
-		var_dump($receipt);
+		//var_dump($receipt);
 		$out = $this->_request($receipt);
 		return $out;
 	}
 
+	/**
+	 * Получить чек по ID в системе pay54.ru
+	 *
+	 * @param $receipt_id
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
 	public function getReceipt($receipt_id) {
 		if(!is_numeric($receipt_id) || $receipt_id <= 0 )
 		{
 			throw new Exception(PAY54_ERROR_RECEIPT_ID);
 		}
-		$this->_buildURL(PAY54_RECEIPT_TYPE_RETURN, $receipt_id);
+		$this->_buildURL(TYPE::TYPE_RETURN, $receipt_id);
 		$out = $this->_request(null);
 		return $out;
 	}
@@ -124,8 +154,6 @@ class pay54ru
 	 * Формирует URL для запроса
 	 *
 	 * @param int    $mode  режим генерации URL
-	 * 0 - отправка чека,
-	 * 1 - получение информации о чеке
 	 *
 	 * @param string $receipt_id
 	 *
@@ -134,13 +162,13 @@ class pay54ru
 	 * @throws Exception
 	 * @since version 1.0
 	 */
-	private function _buildURL($mode = PAY54_RECEIPT_TYPE_SOLD, $receipt_id = '') {
+	private function _buildURL($mode = TYPE::TYPE_SALES, $receipt_id = '') {
 		$task = 'receipt';
 		switch ($mode) {
-			case PAY54_RECEIPT_TYPE_SOLD:
+			case TYPE::TYPE_SALES:
 				$receipt_id = "";
 				break;
-			case PAY54_RECEIPT_TYPE_RETURN:
+			case TYPE::TYPE_RETURN:
 				if(empty($receipt_id)) {
 					throw new Exception(PAY54_ERROR_RECEIPT_ID);
 				}
@@ -172,8 +200,8 @@ class pay54ru
 	private function _request($data) {
 		header('Access-Control-Allow-Origin: *');
 		$data_string = json_encode($data);
-		print_r($data_string);
-		print_r('<br>'.$this->_url);
+		//print_r($data_string);
+		//print_r('<br>'.$this->_url);
 		if(empty($this->_url)) {
 			throw new Exception(PAY54_ERROR_URL);
 		}

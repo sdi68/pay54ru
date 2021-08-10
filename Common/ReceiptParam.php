@@ -11,6 +11,11 @@
 namespace Pay54ru\Common;
 
 
+/**
+ * Базовый класс параметра чека
+ * Class ReceiptParam
+ * @package Pay54ru\Common
+ */
 class ReceiptParam
 {
 	/**

@@ -14,6 +14,8 @@ use Pay54ru\Common\ReceiptParam;
 
 
 /**
+ * Тип чека
+ *
  * @package     Pay54ru\ReceiptParams
  *
  * @since       version 1.0
@@ -32,6 +34,7 @@ class Type extends ReceiptParam
 
 	/**
 	 * Формирование секции параметра
+	 *
 	 * @param $value
 	 *
 	 * @return array

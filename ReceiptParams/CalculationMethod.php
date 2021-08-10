@@ -14,12 +14,17 @@ use Pay54ru\Common\ReceiptParam;
 
 
 /**
+ * Признак типа расчета
+ *
  * @package     Pay54ru\ReceiptParams
  *
  * @since       version 1.0
  */
 class CalculationMethod extends ReceiptParam
 {
+	/**
+	 * Тип расчета отсутствует
+	 */
 	public const CALCULATION_METHOD_NONE = "";
 	/**
 	 * Полная предварительная оплата до момента передачи предмета расчета
@@ -70,6 +75,12 @@ class CalculationMethod extends ReceiptParam
 		return self::_getParam("calculationMethod",$value);
 	}
 
+	/**
+	 * Проверка корректности параметра
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	public static function validate($value) {
 		if(is_numeric($value) && $value >= self::CALCULATION_METHOD_FULL_PREPAYMENT && $value <= self::CALCULATION_METHOD_CREDIT_POSTPAYMENT)
 			return true;

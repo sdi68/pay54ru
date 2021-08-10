@@ -10,17 +10,39 @@
 
 namespace Pay54ru\Supplayer;
 
-
 use Pay54ru\Common\ReceiptParam;
 use Exception;
 
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_SUPPLAYER_EMPTY_PHONE','Отсутствует телефон поставщика');
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_SUPPLAYER_EMPTY_NAME','Отсутствует наименование поставщика');
 
+/**
+ * Поставщик
+ * Class Supplayer
+ * @package Pay54ru\Supplayer
+ */
 class Supplayer  extends ReceiptParam
 {
+	/**
+	 * Телефон
+	 * @var string
+	 */
 	private $_telefonPostavshhika = "";
+	/**
+	 * Наименование
+	 * @var string
+	 */
 	private $_naimenovaniePostavshhika = "";
+	/**
+	 * ИНН
+	 * @var string
+	 */
 	private $_INNPostavshhika = "";
 
 	/**
@@ -39,6 +61,11 @@ class Supplayer  extends ReceiptParam
 	}
 
 
+	/**
+	 * Формирование секции поставщика для чека
+	 * @return array
+	 * @throws Exception
+	 */
 	public function getSection(){
 		$this->_validate();
 		$out = self::_getParam("telefonPostavshhika",$this->_telefonPostavshhika);
@@ -47,6 +74,10 @@ class Supplayer  extends ReceiptParam
 		return $out;
 	}
 
+	/**
+	 * Проверка корректности параметров
+	 * @throws Exception
+	 */
 	private function _validate() {
 		if(empty($this->_telefonPostavshhika))
 			throw new Exception(PAY54_ERROR_SUPPLAYER_EMPTY_PHONE);
@@ -54,5 +85,4 @@ class Supplayer  extends ReceiptParam
 			throw new Exception(PAY54_ERROR_SUPPLAYER_EMPTY_NAME);
 
 	}
-
 }

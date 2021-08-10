@@ -13,12 +13,28 @@ namespace Pay54ru\Positions;
 use Pay54ru\Common\ReceiptParam;
 use Exception;
 
+/**
+ * Ошибка валидации параметра
+ */
 define("PAY54_ERROR_EMPTY_POSITIONS","Нет товарных позиций чека");
 
+/**
+ * Товарные позиции чека
+ * Class Positions
+ * @package Pay54ru\Positions
+ */
 class Positions extends ReceiptParam
 {
 
 
+	/**
+	 * Формирует секцию товарных позиций чека
+	 *
+	 * @param array $positions
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
 	public static function getSection(array $positions){
 		if(count($positions))
 		{

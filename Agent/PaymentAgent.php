@@ -17,25 +17,62 @@ use Pay54ru\Supplayer\Supplayer;
 use Exception;
 
 
+/**
+ * Ошибка валидации значения
+ */
 define('PAY54_ERROR_WRONG_AGENT_TYPE','Некорректное значение признака агента по предмету расчета');
+/**
+ * Ошибка валидации значения
+ */
 define('PAY54_ERROR_WRONG_PAYMENT_AGENT','Некорректное значение платежного агента');
 
+/**
+ * Class PaymentAgent
+ * @package Pay54ru\Agent
+ */
 class PaymentAgent  extends ReceiptParam
 {
+	/**
+	 * @var int|AgentType
+	 */
 	private $_priznakAgentaPoPredmetuRascheta = 1;
+	/**
+	 * @var string
+	 */
 	private $_telefonOperatoraPerevoda = "";
+	/**
+	 * @var string
+	 */
 	private $_operacijaPlatezhnogoAgenta = "";
+	/**
+	 * @var string
+	 */
 	private $_telefonPlatezhnogoAgenta = "";
+	/**
+	 * @var string
+	 */
 	private $_telefonOperatoraPoPriemuPlatezhej = "";
+	/**
+	 * @var string
+	 */
 	private $_naimenovanieOperatoraPerevoda = "";
+	/**
+	 * @var string
+	 */
 	private $_adresOperatoraPerevoda = "";
+	/**
+	 * @var string
+	 */
 	private $_INNOperatoraPerevoda = "";
+	/**
+	 * @var Supplayer|null
+	 */
 	private $_supplayer = null;
 
 	/**
 	 * PaymentAgent constructor.
 	 *
-	 * @param AgentType    $priznakAgentaPoPredmetuRascheta
+	 * @param AgentType|int    $priznakAgentaPoPredmetuRascheta
 	 * @param string $telefonOperatoraPerevoda
 	 * @param string $operacijaPlatezhnogoAgenta
 	 * @param string $telefonPlatezhnogoAgenta
@@ -45,7 +82,7 @@ class PaymentAgent  extends ReceiptParam
 	 * @param string $INNOperatoraPerevoda
 	 * @param Supplayer $supplayer
 	 */
-	public function __construct(AgentType $priznakAgentaPoPredmetuRascheta, string $telefonOperatoraPerevoda, string $operacijaPlatezhnogoAgenta, string $telefonPlatezhnogoAgenta, string $telefonOperatoraPoPriemuPlatezhej, string $naimenovanieOperatoraPerevoda, string $adresOperatoraPerevoda, string $INNOperatoraPerevoda, Supplayer $supplayer)
+	public function __construct(int $priznakAgentaPoPredmetuRascheta, string $telefonOperatoraPerevoda, string $operacijaPlatezhnogoAgenta, string $telefonPlatezhnogoAgenta, string $telefonOperatoraPoPriemuPlatezhej, string $naimenovanieOperatoraPerevoda, string $adresOperatoraPerevoda, string $INNOperatoraPerevoda, Supplayer $supplayer)
 	{
 		$this->_priznakAgentaPoPredmetuRascheta   = $priznakAgentaPoPredmetuRascheta;
 		$this->_telefonOperatoraPerevoda          = $telefonOperatoraPerevoda;
@@ -60,6 +97,11 @@ class PaymentAgent  extends ReceiptParam
 	}
 
 
+	/**
+	 * Формирует секцию параметра в чеке
+	 * @return array
+	 * @throws Exception
+	 */
 	public function getSection(){
 		$this->_validate();
 		$out = array();
@@ -93,6 +135,10 @@ class PaymentAgent  extends ReceiptParam
 		return $out;
 	}
 
+	/**
+	 * Проверка корректности значений
+	 * @throws Exception
+	 */
 	private function _validate(){
 		if(AgentType::validate($this->_priznakAgentaPoPredmetuRascheta))
 		{

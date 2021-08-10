@@ -10,27 +10,79 @@
 
 namespace Pay54ru\Product;
 
-
 use Pay54ru\Common\ReceiptParam;
 use Pay54ru\ReceiptParams\Tax;
 use Pay54ru\ReceiptParams\CalculationMethod;
 use Exception;
 
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_EMPTY_PRODUCT_NAME','Отсутствует наименование товара');
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_EMPTY_PRODUCT_PRICE','Отсутствует цена товара');
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_EMPTY_PRODUCT_COUNT','Отсутствует количество товара');
+/**
+ * Ошибка валидации параметра
+ */
 define('PAY54_ERROR_EMPTY_PRODUCT_TAX','Отсутствует тип НДС товара');
 
+/**
+ * Товар для чека
+ * Class Product
+ * @package Pay54ru\Product
+ */
 class Product extends ReceiptParam
 {
+	/**
+	 * Наименование
+	 * @var string
+	 */
 	private $_name = "";
+	/**
+	 * Цена
+	 * @var float
+	 */
 	private $_price = 0.00;
+	/**
+	 * Количество
+	 * @var float
+	 */
 	private $_count = 0.000;
+	/**
+	 * Тип НДС
+	 * @var int
+	 */
 	private $_tax = 1;
+	/**
+	 * Код товара для маркированных товаров
+	 * @var string
+	 */
 	private $_productCode = "";
+	/**
+	 * Признак типа расчета
+	 * @var int|string
+	 */
 	private $_calculationMethod = 1;
+	/**
+	 * Код страны изготовителя
+	 * @var string
+	 */
 	private $_countryOfOriginCode = "";
+	/**
+	 * Номер таможенной декларации
+	 * @var string
+	 */
 	private $_declarationNumber = "";
+	/**
+	 * Сумма акциза
+	 * @var float|string
+	 */
 	private $_exciseTax = 0.00;
 
 	/**
@@ -48,22 +100,6 @@ class Product extends ReceiptParam
 	 */
 	public function __construct(string $name, float $price, float $count, int $tax, string $productCode, $calculationMethod, string $countryOfOriginCode, string $declarationNumber, $exciseTax)
 	{
-//		if(empty($name)) {
-//			throw new Exception (PAY54_ERROR_EMPTY_PRODUCT_NAME);
-//		}
-//
-//		if(!is_numeric($price) || $price <= 0) {
-//			throw new Exception (PAY54_ERROR_EMPTY_PRODUCT_PRICE);
-//		}
-//
-//		if(!is_numeric($count) || $count <= 0) {
-//			throw new Exception (PAY54_ERROR_EMPTY_PRODUCT_COUNT);
-//		}
-//
-//		if( !Tax::validate($tax)) {
-//			throw new Exception (PAY54_ERROR_EMPTY_PRODUCT_TAX);
-//		}
-
 		$this->_name                = $name;
 		$this->_price               = $price;
 		$this->_count               = $count;
@@ -77,6 +113,11 @@ class Product extends ReceiptParam
 		$this->_validate();
 	}
 
+	/**
+	 * Формирует секцию товара в товарной позиции чека
+	 * @return array
+	 * @throws Exception
+	 */
 	public function getSection(){
 		$this->_validate();
 		$out = $this->_getParam("name",$this->_name);
@@ -102,6 +143,10 @@ class Product extends ReceiptParam
 		return $out;
 	}
 
+	/**
+	 * Проверка корректности параметров
+	 * @throws Exception
+	 */
 	private function _validate (){
 		if(empty($this->_name)) {
 			throw new Exception(PAY54_ERROR_EMPTY_PRODUCT_NAME);
