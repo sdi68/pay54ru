@@ -113,8 +113,7 @@ class pay54ru
 			$receipt = array_merge($receipt, Type::getSection($type));
 			$paymentData = (empty($paymentData)) ? 2: $paymentData;
 			$receipt = array_merge($receipt, PaymentData::getSection($paymentData));
-			if(!empty($uniqueId))
-				$receipt = array_merge($receipt, UniqueId::getSection($uniqueId));
+			$receipt = array_merge($receipt, UniqueId::getSection($uniqueId));
 			$receipt = array_merge($receipt, $customer->getSection());
 			if($calculationMethod !== "") {
 				$receipt = array_merge($receipt, CalculationMethod::getSection($calculationMethod));
