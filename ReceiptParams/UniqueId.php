@@ -10,8 +10,10 @@
 
 namespace Pay54ru\ReceiptParams;
 
+use Exception;
 use Pay54ru\Common\ReceiptParam;
 
+define('PAY54_ERROR_EMPTY_UNIQUE_ID','Некорректное значение идентификатора чека');
 
 /**
  * ID чека в системе
@@ -32,6 +34,13 @@ class UniqueId extends ReceiptParam
 	 * @since version 1.0
 	 */
 	public static function getSection($value){
-		return self::_getParam("\"uniqueId",$value);
+		self::_validate($value);
+		return self::_getParam("uniqueId",$value);
+	}
+
+	private static function _validate($value){
+		if(empty($value)) {
+			throw new Exception(PAY54_ERROR_EMPTY_UNIQUE_ID);
+		}
 	}
 }
