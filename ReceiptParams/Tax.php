@@ -40,7 +40,7 @@ class Tax extends ReceiptParam
 	/**
 	 * 	НДС чека по ставке 20%;
 	 */
-	public const TAX_VAT_CALCULATED = 4;
+	public const TAX_VAT_20 = 4;
 
 	/**
 	 * 	НДС чека по расчетной ставке 10/110;
