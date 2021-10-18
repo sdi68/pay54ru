@@ -13,6 +13,7 @@ namespace Pay54ru\Product;
 use Pay54ru\Common\ReceiptParam;
 use Pay54ru\ReceiptParams\Tax;
 use Pay54ru\ReceiptParams\CalculationMethod;
+use Pay54ru\Common\Pay54Helper;
 use Exception;
 
 /**
@@ -126,7 +127,7 @@ class Product extends ReceiptParam
 		$out = array_merge($out, $this->_getParam("tax",$this->_tax));
 
 		if(!empty($this->_productCode))
-			$out = array_merge($out, $this->_getParam("productCode",$this->_productCode));
+			$out = array_merge($out, $this->_getParam("productCode",Pay54Helper::strToHex($this->_productCode)));
 
 		if(!empty($this->_calculationMethod) || CalculationMethod::validate($this->_calculationMethod))
 			$out = array_merge($out, $this->_getParam("calculationMethod",$this->_calculationMethod));
