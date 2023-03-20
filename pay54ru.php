@@ -227,7 +227,7 @@ class pay54ru
 				'errorMessage' => $errmsg
 			);
 		}
-		if ($out['result']['error'])
+		if (isset($out['result']['error']) && $out['result']['error'])
 		{
 			$out['error'][] = array(
 				'error'        => $out['result']['error'],
